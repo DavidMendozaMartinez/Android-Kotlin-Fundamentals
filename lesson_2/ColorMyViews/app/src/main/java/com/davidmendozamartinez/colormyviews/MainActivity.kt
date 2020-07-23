@@ -33,11 +33,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun makeColored(view: View) {
         when (view.id) {
-            R.id.box_one_text -> view.setBackgroundColor(Color.DKGRAY)
-            R.id.box_two_text -> view.setBackgroundColor(Color.GRAY)
-            R.id.box_three_text -> view.setBackgroundColor(Color.BLUE)
-            R.id.box_four_text -> view.setBackgroundColor(Color.MAGENTA)
-            R.id.box_five_text -> view.setBackgroundColor(Color.BLUE)
+            R.id.box_one_text -> view.setBackgroundResource(R.drawable.ic_one)
+            R.id.box_two_text -> view.setBackgroundResource(R.drawable.ic_two)
+            R.id.box_three_text -> view.setBackgroundResource(R.drawable.ic_three)
+            R.id.box_four_text -> view.setBackgroundResource(R.drawable.ic_four)
+            R.id.box_five_text -> view.setBackgroundResource(R.drawable.ic_five)
             else -> view.setBackgroundColor(Color.LTGRAY)
         }
     }
