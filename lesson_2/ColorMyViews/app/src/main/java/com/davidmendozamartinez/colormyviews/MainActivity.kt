@@ -1,11 +1,9 @@
 package com.davidmendozamartinez.colormyviews
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,33 +19,34 @@ class MainActivity : AppCompatActivity() {
         val boxThreeText = findViewById<TextView>(R.id.box_three_text)
         val boxFourText = findViewById<TextView>(R.id.box_four_text)
         val boxFiveText = findViewById<TextView>(R.id.box_five_text)
+        val boxSixText = findViewById<TextView>(R.id.box_six_text)
+        val boxSevenText = findViewById<TextView>(R.id.box_seven_text)
+        val boxEightText = findViewById<TextView>(R.id.box_eight_text)
+        val boxNineText = findViewById<TextView>(R.id.box_nine_text)
+        val boxTenText = findViewById<TextView>(R.id.box_ten_text)
+        val boxElevenText = findViewById<TextView>(R.id.box_eleven_text)
+        val boxTwelveText = findViewById<TextView>(R.id.box_twelve_text)
+        val boxThirteenText = findViewById<TextView>(R.id.box_thirteen_text)
+        val boxFourteenText = findViewById<TextView>(R.id.box_fourteen_text)
+        val boxFifteenText = findViewById<TextView>(R.id.box_fifteen_text)
 
         val rootConstraintLayout = findViewById<View>(R.id.constraint_layout)
 
-        val redButton = findViewById<TextView>(R.id.red_button)
-        val greenButton = findViewById<TextView>(R.id.green_button)
-        val yellowButton = findViewById<TextView>(R.id.yellow_button)
-
         val clickableViews: List<View> = listOf(
-            boxOneText, boxTwoText, boxThreeText, boxFourText, boxFiveText, rootConstraintLayout,
-            redButton, greenButton, yellowButton
+            boxOneText, boxTwoText, boxThreeText, boxFourText, boxFiveText, boxSixText,
+            boxSevenText, boxEightText, boxNineText, boxTenText, boxElevenText, boxTwelveText,
+            boxThirteenText, boxFourteenText, boxFifteenText, rootConstraintLayout
         )
+
+        val palette = resources.getIntArray(R.array.mondrian_color_palette)
+
         for (item in clickableViews) {
-            item.setOnClickListener { makeColored(it) }
+            item.setOnClickListener { makeColored(it, palette) }
         }
     }
 
-    private fun makeColored(view: View) {
-        when (view.id) {
-            R.id.box_one_text -> view.setBackgroundColor(Color.DKGRAY)
-            R.id.box_two_text -> view.setBackgroundColor(Color.GRAY)
-            R.id.box_three_text -> view.setBackgroundColor(Color.BLUE)
-            R.id.box_four_text -> view.setBackgroundColor(Color.MAGENTA)
-            R.id.box_five_text -> view.setBackgroundColor(Color.BLUE)
-            R.id.red_button -> box_three_text.setBackgroundResource(R.color.my_red)
-            R.id.yellow_button -> box_four_text.setBackgroundResource(R.color.my_yellow)
-            R.id.green_button -> box_five_text.setBackgroundResource(R.color.my_green)
-            else -> view.setBackgroundColor(Color.LTGRAY)
-        }
+    private fun makeColored(view: View, palette: IntArray) {
+        val color = palette.random()
+        view.setBackgroundColor(color)
     }
 }

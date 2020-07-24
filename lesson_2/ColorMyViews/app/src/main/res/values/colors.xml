@@ -3,7 +3,20 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="my_green">#12C700</color>
-    <color name="my_red">#E54304</color>
-    <color name="my_yellow">#FFC107</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#C5C5C5</color>
+    <color name="red">#dd0100</color>
+    <color name="blue">#225095</color>
+    <color name="yellow">#fac901</color>
+
+    <array name="mondrian_color_palette">
+        <item>@color/black</item>
+        <item>@color/white</item>
+        <item>@color/gray</item>
+        <item>@color/red</item>
+        <item>@color/blue</item>
+        <item>@color/yellow</item>
+    </array>
 </resources>
