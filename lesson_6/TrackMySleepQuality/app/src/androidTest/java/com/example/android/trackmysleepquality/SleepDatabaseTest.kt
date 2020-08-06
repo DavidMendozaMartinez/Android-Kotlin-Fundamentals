@@ -16,6 +16,7 @@
 
 package com.example.android.trackmysleepquality
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -24,11 +25,12 @@ import com.example.android.trackmysleepquality.database.SleepDatabaseDao
 import com.example.android.trackmysleepquality.database.SleepNight
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
-
 
 /**
  * This is not meant to be a full set of tests. For simplicity, most of your samples do not
@@ -42,8 +44,16 @@ class SleepDatabaseTest {
     private lateinit var sleepDao: SleepDatabaseDao
     private lateinit var db: SleepDatabase
 
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
+
     @Before
-    fun createDb() {
+    fun setupDb() {
+        createDb()
+        clearDb()
+    }
+
+    private fun createDb() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         // Using an in-memory database because the information stored here disappears when the
         // process is killed.
@@ -54,6 +64,10 @@ class SleepDatabaseTest {
         sleepDao = db.sleepDatabaseDao
     }
 
+    private fun clearDb() {
+        sleepDao.clear()
+    }
+
     @After
     @Throws(IOException::class)
     fun closeDb() {
@@ -62,10 +76,61 @@ class SleepDatabaseTest {
 
     @Test
     @Throws(Exception::class)
-    fun insertAndGetNight() {
+    fun insert() {
         val night = SleepNight()
         sleepDao.insert(night)
+
+        assertEquals(sleepDao.getTonight()!!.copy(nightId = 0L), night)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun update() {
+        val night = SleepNight()
+        sleepDao.insert(night)
+
         val tonight = sleepDao.getTonight()
-        assertEquals(tonight?.sleepQuality, -1)
+        tonight!!.endTimeMilli = System.currentTimeMillis()
+
+        sleepDao.update(tonight)
+        assertEquals(sleepDao.get(tonight.nightId), tonight)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun get() {
+        val night = SleepNight()
+        sleepDao.insert(night)
+
+        val tonight = sleepDao.getTonight()
+        assertEquals(sleepDao.get(tonight!!.nightId), tonight)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun clear() {
+        sleepDao.clear()
+        assertNull(sleepDao.getTonight())
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun getTonight() {
+        val night = SleepNight()
+        sleepDao.insert(night)
+
+        assertEquals(sleepDao.getTonight()!!.copy(nightId = 0L), night)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun getAllNights() {
+        val night = SleepNight()
+        sleepDao.insert(night)
+
+        val tonight = sleepDao.getTonight()
+        val nights = sleepDao.getAllNights()
+
+        assertEquals(nights.getOrAwaitValue(), listOf(tonight))
     }
 }
