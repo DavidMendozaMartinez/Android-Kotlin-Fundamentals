@@ -42,6 +42,8 @@
     <string name="hello_blank_fragment">Hola fragmento en blanco</string>
     <string name="app_name">GDG</string>
     <string name="stage_image_description">Foto desde el escenario de un devfest.</string>
+    <string name="attendees_image_description">Foto de un grupo de asistentes de un devfest</string>
+    <string name="logotype_image_description">Logotipo de GDG</string>
     <string name="submit_button_description">Botón para enviar formulario</string>
     <string name="form_name_description">introduzca su nombre</string>
     <string name="motivation">Cuéntanos un poco más acerca de por qué quieres comenzar un GDG</string>
